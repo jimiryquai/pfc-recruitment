@@ -68,53 +68,6 @@ codeunit 50104 WorkflowSetupExt_PFC
           true, true);
     end;
 
-    // local procedure InsertWorkflowTemplates()
-    // begin
-    //     InsertApprovalsTableRelations();
-    //     InsertVacancyApprovalWorkflowTemplate();
-    //     OnInsertWorkflowTemplates();
-    // end;
-
-    // procedure InsertWorkflowCategories()
-    // begin
-    //     InsertWorkflowCategory(VacancyCategoryDescTxt, VacancyCategoryDescTxt);
-    //     OnAddWorkflowCategoriesToLibrary();
-    // end;
-
-    // local procedure InsertVacancyApprovalWorkflowTemplate()
-    // var
-    //     Workflow: Record Workflow;
-    // begin
-    //     InsertWorkflowTemplate(Workflow, VacancyApprWorkflowCodeTxt, VacancyApprWorkflowDescTxt, VacancyCategoryTxt);
-    //     InsertVacancyApprovalWorkflowDetails(Workflow);
-    //     MarkWorkflowAsTemplate(Workflow);
-    // end;
-
-    // procedure InsertVacancyApprovalWorkflow()
-    // var
-    //     Workflow: Record Workflow;
-    // begin
-    //     InsertWorkflow(Workflow, GetWorkflowCode(VacancyApprWorkflowCodeTxt), VacancyApprWorkflowDescTxt, VacancyCategoryTxt);
-    //     InsertVacancyApprovalWorkflowDetails(Workflow);
-    // end;
-
-    // local procedure InsertVacancyApprovalWorkflowDetails(var Workflow: Record Workflow)
-    // var
-    //     WorkflowStepArgument: Record "Workflow Step Argument";
-    // begin
-    //     PopulateWorkflowStepArgument(WorkflowStepArgument,
-    //       WorkflowStepArgument."Approver Type"::Approver, WorkflowStepArgument."Approver Limit Type"::"Direct Approver",
-    //       0, '', BlankDateFormula, true);
-
-    //     InsertRecApprovalWorkflowSteps(Workflow, BuildVacancyTypeConditions(),
-    //       WorkflowEventHandling.RunWorkflowOnSendVacancyForApprovalCode(),
-    //       WorkflowResponseHandling.CreateApprovalRequestsCode(),
-    //       WorkflowResponseHandling.SendApprovalRequestForApprovalCode(),
-    //       WorkflowEventHandling.RunWorkflowOnCancelVacancyApprovalCode(),
-    //       WorkflowStepArgument,
-    //       true, true);
-    // end;
-
     procedure InsertRecApprovalWorkflowSteps(Workflow: Record Workflow; ConditionString: Text; RecSendForApprovalEventCode: Code[128]; RecCreateApprovalRequestsCode: Code[128]; RecSendApprovalRequestForApprovalCode: Code[128]; RecCanceledEventCode: Code[128]; WorkflowStepArgument: Record "Workflow Step Argument"; ShowConfirmationMessage: Boolean; RemoveRestrictionOnCancel: Boolean)
     var
         SentForApprovalEventID: Integer;
@@ -277,17 +230,6 @@ codeunit 50104 WorkflowSetupExt_PFC
         WorkflowStepArgument."Show Confirmation Message" := ShowConfirmationMessage;
         WorkflowStepArgument.Modify(true);
     end;
-
-
-    // [IntegrationEvent(TRUE, false)]
-    // local procedure OnInsertWorkflowTemplates()
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAddWorkflowCategoriesToLibrary()
-    // begin
-    // end;
 
     procedure GetSequenceNumber(Workflow: Record Workflow; PreviousStepID: Integer): Integer
     var
@@ -471,12 +413,4 @@ codeunit 50104 WorkflowSetupExt_PFC
     begin
         exit(StrSubstNo(VacancyTypeCondnTxt, Encode(Vacancy.GetView(false))));
     end;
-
-
-
-//     [IntegrationEvent(false, false)]
-//     local procedure OnAfterInsertApprovalsTableRelations()
-//     begin
-//     end;
-// 
 }
